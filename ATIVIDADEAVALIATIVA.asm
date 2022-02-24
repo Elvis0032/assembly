@@ -6,11 +6,13 @@
 	result: .asciiz "O resultado do calculo é: "
 
 .text
-	# atribui valores aos registradores s1, s2, s3, s4
-	addi $s1, $zero, 1
-	addi $s2, $zero, 2
-	addi $s3, $zero, 3
-	addi $s4, $zero, 4
+	
+	
+	
+	
+	
+	
+	
 	#Imprime a mensagem presente na constante hello
 	li $v0, 4
 	la $a0, hello
@@ -24,13 +26,6 @@
 	syscall
 	
 	
-	li $v0,4
-	la $a0, result
-	syscall
 	
-	li $v0,	4
-	move $t0, $v0
-	la $t0,4
-	syscall
 	
 	
