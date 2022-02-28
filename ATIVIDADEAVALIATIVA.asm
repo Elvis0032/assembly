@@ -1,124 +1,111 @@
 .data
-	hello: .asciiz "Seja bem vindo a minha calculadora. \n Escolha um calculo para prosseguir \n"
-	opcao: .asciiz "1 - Soma; 2 - Subtração; 3 - Divisão; 4 - Multiplicação; 5: Raiz quadrada \n"
-	num1: .asciiz "Informe o Primeiro Número: "
-	num2: .asciiz "Inoforme o Segundo Número: "
-	result: .asciiz "O resultado do calculo é: "
-	error_msg: .asciiz "Não é uma raiz quadrada perfeita"
+	hello: .asciiz "Seja bem vindo a minha calculadora. \n Escolha um calculo para prosseguir \n" # Mensagem de Olá
+	opcao: .asciiz "1 - Soma; 2 - Subtração; 3 - Divisão; 4 - Multiplicação; 5: Raiz quadrada \n" # Mensagem para os valores para os respectivos calculos
+	num1: .asciiz "Informe o Primeiro Número: " # Mensagem para inserir o primeiro valor
+	num2: .asciiz "Inoforme o Segundo Número: " # Mensagem para inserir o segundo valor
+	result: .asciiz "O resultado do calculo é: " # Mensagem para o resultado
+	error_msg: .asciiz "Não é uma raiz quadrada perfeita" # Mensagem para quando o valor da raiz for um valor quebrado
 
-.macro soma 
+.macro soma # inicia a macro soma
 
-la $a0, num1
-li $v0, 4
-syscall 
-li $v0, 5
-syscall
-move $t1, $v0
-
-
-la $a0, num2
-li $v0, 4
-syscall
-li $v0, 5
-syscall
-move $t2, $v0
+	la $a0, num1 # carrega o valor de num1 em a0
+	li $v0, 4 # Chamada de sistema para imprimir uma String
+	syscall # Executa a chamada de Sistema
+	li $v0, 5 # Chamada de sistema para ler valor interio
+	syscall # Executa a chamada de Sistema
+	move $t1, $v0 # Move o valor armazenado em v0 para t1
 
 
-add $t3, $t2, $t1
-move $a0, $t3
-li $v0, 1
-syscall
-
-.end_macro
-
-
-.macro subtracao
-
-la $a0, num1
-li $v0, 4
-syscall
-li $v0, 5
-syscall
-move $t1, $v0
-
-la $a0, num2
-li $v0, 4
-syscall
-li $v0, 5
-syscall
-move $t2, $v0
-
-sub $t3, $t1, $t2
-move $a0, $t3
-li $v0, 1
-syscall
-
-.end_macro
-
-.macro multiplicar
+	la $a0, num2 # carrega o valor de num2 em a0
+	li $v0, 4 # Chamada de sistema para imprimir uma String
+	syscall # Executa a chamada de Sistema
+	li $v0, 5 # Chamada de sistema para ler valor interio
+	syscall # Executa a chamada de Sistema
+	move $t2, $v0 # Move o valor armazenado em v0 para t2
 
 
-li $v0,4
-la $a0,num2
+	add $t3, $t2, $t1 # Soma os valores presentes em t1 e t2 e armazena em t3
+	move $a0, $t3 # Move o valor armazenado em t3 para a0
+	li $v0, 1 # Chamada de Sistema para Imprimir valor Inteiro
+	syscall # Executa a chamada de Sistema
 
-syscall	
-li $v0,5
-syscall	
+.end_macro # Fim da macro soma
 
-move $t0, $v0	
-li $v0,4
-la $a0,num1
-syscall	
 
-li $v0,5
-syscall
+.macro subtracao # Início da macro subtracao
 
-move $t1, $v0	
-mult $t0,$t1	
-mfhi $s3	
-syscall
+	la $a0, num1  # carrega o valor de num1 em a0
+	li $v0, 4  # Chamada de sistema para imprimir uma String 
+	syscall  # Executa a chamada de Sistema 
+	li $v0, 5  # Chamada de sistema para ler valor interio
+	syscall  # Executa a chamada de Sistema 
+	move $t1, $v0  # Move o valor armazenado em v0 para t1
 
-li $v0,1
-move $a0,$s3	
-syscall
+	la $a0, num2  # carrega o valor de num2 em a0
+	li $v0, 4  # Chamada de sistema para imprimir uma String 
+	syscall  # Executa a chamada de Sistema 
+	li $v0, 5  # Chamada de sistema para ler valor interio
+	syscall  # Executa a chamada de Sistema 
+	move $t2, $v0 # Move o valor armazenado em v0 para t2
+
+	sub $t3, $t1, $t2 # Subtrai os valores presentes em t2 e t1 e armazena em t3
+	move $a0, $t3 # Move o valor armazenado em t3 para a0
+	li $v0, 1  # Chamada de Sistema para Imprimir valor Inteiro
+	syscall  # Executa a chamada de Sistema 
+
+.end_macro # Fim da macro soma
+
+.macro multiplicar # Inicio da Macro multiplicar 
+
+	la $a0, num1  # carrega o valor de num1 em a0
+	li $v0, 4  # Chamada de sistema para imprimir uma String 
+	syscall  # Executa a chamada de Sistema 
+	li $v0, 5  # Chamada de sistema para ler valor interio
+	syscall  # Executa a chamada de Sistema 
+	move $t1, $v0  # Move o valor armazenado em v0 para t1
+
+	la $a0, num2  # carrega o valor de num2 em a0
+	li $v0, 4  # Chamada de sistema para imprimir uma String 
+	syscall  # Executa a chamada de Sistema 
+	li $v0, 5  # Chamada de sistema para ler valor interio
+	syscall  # Executa a chamada de Sistema 
+	move $t2, $v0 # Move o valor armazenado em v0 para t2
+
+	mul $t3, $t1, $t2 # Multiplica os valores presentes em t2 e t1 e armazena em t3
+	move $a0, $t3 # Move o valor armazenado em t3 para a0
+	li $v0, 1  # Chamada de Sistema para Imprimir valor Inteiro
+	syscall  # Executa a chamada de Sistema 
 
 .end_macro
 
 
-.macro dividir
+.macro dividir # Inicio da Macro dividir
 
-li $v0,4
-la $a0, num1
-syscall
-	
-li $v0,5
-syscall
-	
-move $t0, $v0
-	
-li $v0,4
-la $a0,num2
-syscall
-	
-li $v0,5
-syscall
+	la $a0, num1  # carrega o valor de num1 em a0
+	li $v0, 4  # Chamada de sistema para imprimir uma String 
+	syscall  # Executa a chamada de Sistema 
+	li $v0, 5  # Chamada de sistema para ler valor interio
+	syscall  # Executa a chamada de Sistema 
+	move $t1, $v0  # Move o valor armazenado em v0 para t1
 
-move $t1, $v0
+	la $a0, num2  # carrega o valor de num2 em a0
+	li $v0, 4  # Chamada de sistema para imprimir uma String 
+	syscall  # Executa a chamada de Sistema 
+	li $v0, 5  # Chamada de sistema para ler valor interio
+	syscall  # Executa a chamada de Sistema 
+	move $t2, $v0 # Move o valor armazenado em v0 para t2
 
-div $t0, $t1
+	div $t3, $t1, $t2 #  Divide os valores presentes em t2 e t1 e armazena em t3
+	move $a0, $t3 # Move o valor armazenado em t3 para a0
+	li $v0, 1  # Chamada de Sistema para Imprimir valor Inteiro
+	syscall  # Executa a chamada de Sistema 
 
-mflo $s3
-
-li $v0,1
-move $a0,$s3
-syscall
-
-.end_macro	
+.end_macro # fim da macro dividir
 
 .macro raiz
 		jal read_int		# le o inteiro
-		la 	$s0, ($v0)	# guarda o valor lido
-		li	$s1, 0
+		la $s0, ($v0)	# guarda o valor lido
+		li $s1, 0
 		jal isqrt		# calcula a raiz quadrada		
 
 	print_int:
@@ -137,7 +124,7 @@ syscall
 		sub $s0, $s0, $t0
 		add $s1, $s1, 1		# incrementa o contador, que sera o resultado da raiz
 		beq $s0, $zero, success	# se chegamos a zero a raiz é perfeita
-		slt	$t0, $s0, $zero	# caso seja menor que zero, deu problema
+		slt $t0, $s0, $zero	# caso seja menor que zero, deu problema
 		beq $t0, 1, error	# então mostramos mensagem de erro
 		j isqrt	# caso não ocorra nenhum dos casos acima, itera novamente
 		
@@ -145,13 +132,13 @@ syscall
 		la $a0, error_msg
 		la $v0, 4
 		syscall
-		j	 exit
+		j exit
 	
 	success:
 		la $v0, 1
 		la $a0, ($s1)
 		syscall
-		j  exit
+		j exit
 	
 	exit:
 		la $v0, 10
@@ -177,7 +164,7 @@ main:
 	syscall
 	move $t4, $v0
 	
-	beq $t4,5,raizquadrada
+	beq $t4,5,raizquadrada 
 	beq $t4,4,multiplicacao
 	beq $t4,3,dividir
 	beq $t4,2,subtrair
